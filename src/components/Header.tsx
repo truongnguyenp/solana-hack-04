@@ -30,15 +30,16 @@ const NavLink = ({ children }: { children: ReactNode }) => (
   <Link
     px={2}
     py={1}
-    textColor={'gray.200'}
+    textColor={'gray.900'}
     rounded={'md'}
     _hover={{
       textDecoration: 'none',
-      bg: 'gray.700',
+      bg: 'gray.200',
     }}
     href={'#'}
   >
     {children}
+    {/* {console.log('header: ', children)} */}
   </Link>
 );
 
@@ -77,7 +78,7 @@ export default function Header() {
 
   return (
     <>
-      <Box bg={'gray.900'} px={4}>
+      <Box bg={'white'} px={6} py={4} borderBottom="1px solid" borderColor="gray.200">
         <Flex h={16} alignItems={'center'} justifyContent={'space-between'}>
           <IconButton
             size={'md'}
@@ -87,7 +88,8 @@ export default function Header() {
             onClick={isOpen ? onClose : onOpen}
           />
           <HStack spacing={8} alignItems={'center'}>
-            <Box>Logo</Box>
+            {/* <Box>Logo</Box> */}
+            {/* <LogoIcon w={8} h={8} color="gray.900" /> */}
             <HStack
               as={'nav'}
               spacing={4}
@@ -120,17 +122,18 @@ export default function Header() {
                 minW={0}
               >
                 <Avatar
-                  size={'sm'}
+                  size={'md'}
+                  borderRadius={8}
                   src={
-                    'https://images.unsplash.com/photo-1493666438817-866a91353ca9?ixlib=rb-0.3.5&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&s=b616b2c5b373a80ffc9636ba24f7a4a9'
+                    'https://media.howrare.is/nft_images/madlads/283b4a1de2ffd759a7b00bf428ba1bf6.jpg'
                   }
                 />
               </MenuButton>
               <MenuList>
-                <MenuItem>Link 1</MenuItem>
-                <MenuItem>Link 2</MenuItem>
+                <MenuItem>Profile</MenuItem>
+                <MenuItem>Settings</MenuItem>
                 <MenuDivider />
-                <MenuItem>Link 3</MenuItem>
+                <MenuItem>Logout</MenuItem>
               </MenuList>
             </Menu>
           </Flex>

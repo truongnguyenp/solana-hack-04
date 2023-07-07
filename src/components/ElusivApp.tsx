@@ -8,10 +8,15 @@ import Topup from './Topup';
 import Send from './Send';
 import { AppContext } from '@/contexts/AppProvider';
 import ViewPrivateTransaction from './ViewPrivateTransaction';
-import Offers from './Offer/Offers';
-import { POSTS } from '@/constants';
+// import Offers from './Offer/Offers';
+import Offers from './Offers';
+
+// import { POSTS } from '@/constants';
 import BorrowingRequest from './BorrowingRequest';
 import AuditingRequest from './AuditingRequest';
+
+import { OFFERS } from '@/constants';
+
 
 export default function ElusivApp() {
   const {
@@ -80,8 +85,8 @@ export default function ElusivApp() {
   const [isAuditingRequestodalVisible, toggleAuditingRequestodalVisible] =
     useToggle();
   return (
-    <div className="flex w-full h-[100vh] justify-center bg-gray-800">
-      <div className="flex flex-col justify-center space-between gap-4 items-center w-[40%]">
+    <div className="flex w-full justify-center bg-gray-800">
+      {/* <div className="flex flex-col justify-center space-between gap-4 items-center w-[40%]">
         <Topup
           isTopUpModalVisible={isTopUpModalVisible}
           toggleTopUpModalVisible={toggleTopUpModalVisible}
@@ -97,8 +102,8 @@ export default function ElusivApp() {
           isViewTransactionModalVisible={isViewTransactionModalVisible}
           toggleViewTransactionModalVisible={toggleViewTransactionModalVisible}
         />
-      </div>
-      <div className="flex flex-col w-[60%] justify-center items-center">
+      </div> */}
+      {/* <div className="flex flex-col w-[60%] justify-center items-center">
         <Text className="align-center text-white text-center w-[450px] font-medium text-xl">
           This is a Elusiv Dapp Example for every body who want to know how to
           integrate Elusiv SDK to your app. Here we have build 3 function when
