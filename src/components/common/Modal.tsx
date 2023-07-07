@@ -1,3 +1,4 @@
+import { sendRequest } from '@/api/server';
 import {
   Modal as ChakraModal,
   ModalOverlay,
@@ -7,6 +8,7 @@ import {
   ModalBody,
   ModalCloseButton,
   Button,
+  useToast,
 } from '@chakra-ui/react';
 import React from 'react';
 
@@ -17,7 +19,7 @@ export default function Modal({
   modalLabel,
   loading,
   children,
-  actionLabel = 'Action',
+  actionLabel,
 }: {
   onClose: () => void;
   children?: React.ReactNode;
@@ -27,6 +29,7 @@ export default function Modal({
   actionLabel?: string;
   loading: boolean;
 }) {
+
   return (
     <ChakraModal
       isCentered

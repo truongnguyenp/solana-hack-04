@@ -16,6 +16,8 @@ import {
 import Layout from '@/components/layout/Layout';
 import { AppContextProvider } from '@/contexts/AppProvider';
 import { Elusiv } from '@elusiv/sdk';
+import { QueryClient, QueryClientProvider } from 'react-query';
+
 require('@solana/wallet-adapter-react-ui/styles.css');
 
 export default function App({ Component, pageProps }: AppProps) {
@@ -32,25 +34,28 @@ export default function App({ Component, pageProps }: AppProps) {
     ],
     [network]
   );
+  const [queryClient] = useState(() => new QueryClient());
   const [elusiv, setElusiv] = useState<Elusiv | undefined>();
   return (
-    <WalletContextProvider
-      endpoint={endpoint}
-      network={network}
-      wallets={wallets}
-    >
-      <AppContextProvider
-        wallet={{
-          elusiv: elusiv,
-          setElusiv: setElusiv,
-        }}
+    <QueryClientProvider client={queryClient}>
+      <WalletContextProvider
+        endpoint={endpoint}
+        network={network}
+        wallets={wallets}
       >
-        <ChakraProvider>
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
-        </ChakraProvider>
-      </AppContextProvider>
-    </WalletContextProvider>
+        <AppContextProvider
+          wallet={{
+            elusiv: elusiv,
+            setElusiv: setElusiv,
+          }}
+        >
+          <ChakraProvider>
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
+          </ChakraProvider>
+        </AppContextProvider>
+      </WalletContextProvider>
+    </QueryClientProvider>
   );
 }

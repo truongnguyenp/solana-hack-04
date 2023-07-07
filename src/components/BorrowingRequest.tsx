@@ -12,6 +12,8 @@ import { TopupTxData } from '@elusiv/sdk';
 import { useWallet } from '@solana/wallet-adapter-react';
 import { LAMPORTS_PER_SOL } from '@solana/web3.js';
 import { AppContext } from '@/contexts/AppProvider';
+import { useMutation } from 'react-query';
+import { sendRequest } from '@/api/server';
 
 export default function BorrowingRequest({
   isBorrowingRequestodalVisible,
@@ -29,6 +31,26 @@ export default function BorrowingRequest({
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setAmount(e.target.value as unknown as number);
   const toast = useToast();
+  const { mutate: sendReq } = useMutation(sendRequest, {
+    onSuccess: () => {
+      toast({
+        title: 'Success',
+        description: 'Request accepted',
+        status: 'success',
+        duration: 5000,
+        isClosable: true,
+      });
+    },
+    onError: (error) => {
+      toast({
+        title: 'Error',
+        description: error.message,
+        status: 'error',
+        duration: 5000,
+        isClosable: true,
+      });
+    },
+  });
 
   return (
     <div>
@@ -46,9 +68,12 @@ export default function BorrowingRequest({
         isOpen={isBorrowingRequestodalVisible}
         actionLabel="Submit request"
         onClose={toggleBorrowingRequestodalVisible}
-        modalLabel="Topup to Elusiv"
+        modalLabel="Request to borrow money"
         onSubmit={() => {
-          topup();
+          sendReq({
+            assetId: 'F9Lw3ki3hJ7PF9HQXsBzoY8GyE6sPoEZZdXJBsTTD2rk',
+            owner: 'CbSKdjmeR8ursxzJHXqk6sQJjQUCCC1sof6NLtABoTC4',
+          });
         }}
       >
         <FormControl isRequired>

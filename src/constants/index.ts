@@ -11,3 +11,4 @@ export const POSTS = [
     "content": "Lending"
   }
 ]
+export const ELUSIV_KEY = "THIS_IS_A_ELUSIV_KEY";

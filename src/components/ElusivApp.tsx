@@ -11,6 +11,7 @@ import ViewPrivateTransaction from './ViewPrivateTransaction';
 import Offers from './Offer/Offers';
 import { POSTS } from '@/constants';
 import BorrowingRequest from './BorrowingRequest';
+import AuditingRequest from './AuditingRequest';
 
 export default function ElusivApp() {
   const {
@@ -76,6 +77,8 @@ export default function ElusivApp() {
     useToggle();
   const [isBorrowingRequestodalVisible, toggleBorrowingRequestodalVisible] =
     useToggle();
+  const [isAuditingRequestodalVisible, toggleAuditingRequestodalVisible] =
+    useToggle();
   return (
     <div className="flex w-full h-[100vh] justify-center bg-gray-800">
       <div className="flex flex-col justify-center space-between gap-4 items-center w-[40%]">
@@ -125,6 +128,10 @@ export default function ElusivApp() {
       <BorrowingRequest
         isBorrowingRequestodalVisible={isBorrowingRequestodalVisible}
         toggleBorrowingRequestodalVisible={toggleBorrowingRequestodalVisible}
+      />
+      <AuditingRequest
+        isAuditingRequestodalVisible={isAuditingRequestodalVisible}
+        toggleAuditingRequestodalVisible={toggleAuditingRequestodalVisible}
       />
       <Offers posts={POSTS} />
     </div>

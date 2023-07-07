@@ -3,7 +3,7 @@ import { Button, Text } from '@chakra-ui/react';
 import Link from 'next/link';
 import Image from 'next/image';
 const Offers = ({ posts }: any) => {
-  console.log(posts);
+  // console.log(posts);
   return (
     <div className="w-full m-auto px-20 flex items-center flex-wrap justify-center">
       {posts.map((post: any, index: number) => (
