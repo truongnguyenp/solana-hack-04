@@ -10,6 +10,7 @@ import { AppContext } from '@/contexts/AppProvider';
 import ViewPrivateTransaction from './ViewPrivateTransaction';
 import Offers from './Offer/Offers';
 import { POSTS } from '@/constants';
+import BorrowingRequest from './BorrowingRequest';
 
 export default function ElusivApp() {
   const {
@@ -73,7 +74,8 @@ export default function ElusivApp() {
   const [isSendModalVisible, toggleSendModalVisible] = useToggle();
   const [isViewTransactionModalVisible, toggleViewTransactionModalVisible] =
     useToggle();
-
+  const [isBorrowingRequestodalVisible, toggleBorrowingRequestodalVisible] =
+    useToggle();
   return (
     <div className="flex w-full h-[100vh] justify-center bg-gray-800">
       <div className="flex flex-col justify-center space-between gap-4 items-center w-[40%]">
@@ -120,6 +122,10 @@ export default function ElusivApp() {
           </li>
         </ul>
       </div>
+      <BorrowingRequest
+        isBorrowingRequestodalVisible={isBorrowingRequestodalVisible}
+        toggleBorrowingRequestodalVisible={toggleBorrowingRequestodalVisible}
+      />
       <Offers posts={POSTS} />
     </div>
   );
