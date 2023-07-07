@@ -8,7 +8,7 @@ import Topup from './Topup';
 import Send from './Send';
 import { AppContext } from '@/contexts/AppProvider';
 import ViewPrivateTransaction from './ViewPrivateTransaction';
-import Post from './Posts';
+import Offers from './Offer/Offers';
 import { POSTS } from '@/constants';
 
 export default function ElusivApp() {
@@ -120,7 +120,7 @@ export default function ElusivApp() {
           </li>
         </ul>
       </div>
-      <Post posts={POSTS} />
+      <Offers posts={POSTS} />
     </div>
   );
 }

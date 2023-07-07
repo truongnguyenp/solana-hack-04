@@ -2,7 +2,7 @@ import styles from '@/styles/Home.module.css';
 import { Button, Text } from '@chakra-ui/react';
 import Link from 'next/link';
 import Image from 'next/image';
-const Post = ({ posts }: any) => {
+const Offers = ({ posts }: any) => {
   console.log(posts);
   return (
     <div className="w-full m-auto px-20 flex items-center flex-wrap justify-center">
@@ -56,4 +56,4 @@ const Post = ({ posts }: any) => {
   );
 };
 
-export default Post;
+export default Offers;
