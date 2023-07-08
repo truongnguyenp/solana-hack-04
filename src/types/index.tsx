@@ -17,6 +17,10 @@ export enum REQUEST_STATUS {
   PROCESSING = 'PROCESSING',
   COMPLETE = 'COMPLETE',
 }
+export enum ROLE {
+  LENDER = 'LENDER',
+  BORROWER = 'BORROWER',
+}
 
 export interface ApiRequest {
   assetId: string;

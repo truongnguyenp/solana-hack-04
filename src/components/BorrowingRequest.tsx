@@ -18,7 +18,9 @@ import { sendRequest } from '@/api/server';
 export default function BorrowingRequest({
   isBorrowingRequestodalVisible,
   toggleBorrowingRequestodalVisible,
+  className,
 }: {
+  className?: string;
   isBorrowingRequestodalVisible: boolean;
   toggleBorrowingRequestodalVisible: () => void;
 }) {
@@ -28,14 +30,21 @@ export default function BorrowingRequest({
   const { signTransaction } = useWallet();
   const [loading, setLoading] = useState(false);
   const [amount, setAmount] = useState<number>();
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) =>
+  const [receivingAccount, setReceivingAccount] = useState<string>();
+
+  const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setAmount(e.target.value as unknown as number);
+
+  const handleReceivingAccountChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => setReceivingAccount(e.target.value as unknown as number);
   const toast = useToast();
   const { mutate: sendReq } = useMutation(sendRequest, {
     onSuccess: () => {
       toast({
         title: 'Success',
-        description: 'Request accepted',
+        description: 'Request verified',
+        position: 'top-right',
         status: 'success',
         duration: 5000,
         isClosable: true,
@@ -53,7 +62,7 @@ export default function BorrowingRequest({
   });
 
   return (
-    <div>
+    <div className={className}>
       <Button
         isLoading={loading}
         leftIcon={<TopUpIcon />}
@@ -78,11 +87,14 @@ export default function BorrowingRequest({
       >
         <FormControl isRequired>
           <FormLabel>NFT ID</FormLabel>
-          <Input value={amount} onChange={handleInputChange}></Input>
+          <Input value={amount} onChange={handleAmountChange}></Input>
         </FormControl>
         <FormControl isRequired>
           <FormLabel>Receiving Account</FormLabel>
-          <Input value={amount} onChange={handleInputChange}></Input>
+          <Input
+            value={receivingAccount}
+            onChange={handleReceivingAccountChange}
+          ></Input>
         </FormControl>
       </Modal>
     </div>

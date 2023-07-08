@@ -26,7 +26,16 @@ export default function Request({ request, acceptRequestAction }: Props) {
       toast({
         title: 'Success',
         description: 'Request accepted',
+        position: 'top-right',
         status: 'success',
+        duration: 5000,
+        isClosable: true,
+      });
+      toast({
+        title: 'Info',
+        description: 'Sending money to borrower',
+        position: 'top-right',
+        status: 'info',
         duration: 5000,
         isClosable: true,
       });
@@ -43,13 +52,20 @@ export default function Request({ request, acceptRequestAction }: Props) {
   });
   return (
     <div>
-      <Card _active={true}>
+      <Card
+        style={{
+          backgroundColor: '#1a202c',
+          color: '#fff',
+          borderRadius: '10px',
+          boxShadow: '0 0 10px rgba(0,0,0,0.5)',
+        }}
+      >
         <CardHeader>
           <Heading size="md">Request</Heading>
         </CardHeader>
 
         <CardBody>
-          <Stack divider={<StackDivider />} spacing="4">
+          <Stack divider={<StackDivider />} spacing="4" gap={'1'}>
             <Box>
               <Heading size="xs" textTransform="uppercase">
                 {request.owner.email}
@@ -75,11 +91,11 @@ export default function Request({ request, acceptRequestAction }: Props) {
                   <Text pt="2" fontSize="sm">
                     {request.status === REQUEST_STATUS.COMPLETE ? (
                       <>
-                        Accepted <CheckIcon />
+                        Accepted <CheckIcon color={'green'} />
                       </>
                     ) : (
                       <>
-                        Rejected <CloseIcon />
+                        Rejected <CloseIcon color={'red'} />
                       </>
                     )}
                   </Text>

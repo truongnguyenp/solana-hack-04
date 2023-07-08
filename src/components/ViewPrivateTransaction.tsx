@@ -3,13 +3,14 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useConnection, useWallet } from '@solana/wallet-adapter-react';
 import { GlobalIcon } from './icons';
 import Modal from './common/Modal';
-import { Button, FormControl, FormLabel } from '@chakra-ui/react';
+import { Button } from '@chakra-ui/react';
 import { AppContext } from '@/contexts/AppProvider';
 import { LAMPORTS_PER_SOL } from '@solana/web3.js';
 import TransactionItem from './TransactionItem';
 interface ViewPrivateTransactionProps {
   isViewTransactionModalVisible: boolean;
   toggleViewTransactionModalVisible: () => void;
+  className?: string;
 }
 
 interface TransactionModal {
@@ -21,6 +22,7 @@ interface TransactionModal {
 export default function ViewPrivateTransaction({
   isViewTransactionModalVisible,
   toggleViewTransactionModalVisible,
+  className,
 }: ViewPrivateTransactionProps) {
   const {
     wallet: { elusiv },
@@ -43,7 +45,9 @@ export default function ViewPrivateTransaction({
     const listOfResolvedTx = await Promise.all(
       listOfSendTx.map(transformTransaction)
     );
-    setListOfTxs(listOfResolvedTx.filter((tx) => tx !== null) as TransactionModal[]);
+    setListOfTxs(
+      listOfResolvedTx.filter((tx) => tx !== null) as TransactionModal[]
+    );
     setLoading(false);
   };
 
@@ -67,7 +71,7 @@ export default function ViewPrivateTransaction({
   };
 
   return (
-    <>
+    <div className={className}>
       <Button
         leftIcon={<GlobalIcon />}
         colorScheme="telegram"
@@ -76,9 +80,9 @@ export default function ViewPrivateTransaction({
           await handleViewTransaction();
           toggleViewTransactionModalVisible();
         }}
-        className='w-[200px]'
+        className="w-[200px]"
       >
-        view transaction
+        View transaction
       </Button>
       {!loading && (
         <Modal
@@ -89,16 +93,21 @@ export default function ViewPrivateTransaction({
           onSubmit={() => {}}
         >
           {
-            <div className='max-h-[400px] w-[400px] overflow-scroll overflow-x-hidden scroll-mx-0'>
+            <div className="max-h-[400px] w-[400px] overflow-scroll overflow-x-hidden scroll-mx-0">
               {listOfTxs.map((tx, index) => {
                 return (
-                  <TransactionItem amount={tx.amount} owner={tx.owner} recepient={tx.recepient} key={index}/>
+                  <TransactionItem
+                    amount={tx.amount}
+                    owner={tx.owner}
+                    recepient={tx.recepient}
+                    key={index}
+                  />
                 );
               })}
             </div>
           }
         </Modal>
       )}
-    </>
+    </div>
   );
 }

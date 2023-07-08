@@ -1,5 +1,5 @@
 /* eslint-disable */
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, use } from 'react';
 import { Elusiv, SEED_MESSAGE } from '@elusiv/sdk';
 import { useConnection, useWallet } from '@solana/wallet-adapter-react';
 import { useToggle } from 'usehooks-ts';
@@ -8,15 +8,15 @@ import Topup from './Topup';
 import Send from './Send';
 import { AppContext } from '@/contexts/AppProvider';
 import ViewPrivateTransaction from './ViewPrivateTransaction';
-// import Offers from './Offer/Offers';
 import Offers from './Offers';
 
-// import { POSTS } from '@/constants';
 import BorrowingRequest from './BorrowingRequest';
 import AuditingRequest from './AuditingRequest';
 
 import { OFFERS } from '@/constants';
-
+import { setUserRole } from '@/utils';
+import { ROLE } from '@/types';
+import { PublicKey } from '@solana/web3.js';
 
 export default function ElusivApp() {
   const {
@@ -35,7 +35,13 @@ export default function ElusivApp() {
     const totalBalance = await elusiv.getLatestPrivateBalance('LAMPORTS');
     setTotalBalance(totalBalance);
   };
-
+  useEffect(() => {
+    if (
+      publicKey?.toBase58() === 'Cyg6eBrhpC3hCPTutCxDGaL7KRoaPf8EiJGrDivDYXr8'
+    ) {
+      setUserRole(ROLE.LENDER);
+    } else setUserRole(ROLE.BORROWER);
+  });
   useEffect(() => {
     const getElusiv = async () => {
       if (!publicKey || !signMessage) return;
@@ -78,15 +84,11 @@ export default function ElusivApp() {
 
   const [isTopUpModalVisible, toggleTopUpModalVisible] = useToggle();
   const [isSendModalVisible, toggleSendModalVisible] = useToggle();
-  const [isViewTransactionModalVisible, toggleViewTransactionModalVisible] =
-    useToggle();
-  const [isBorrowingRequestodalVisible, toggleBorrowingRequestodalVisible] =
-    useToggle();
-  const [isAuditingRequestodalVisible, toggleAuditingRequestodalVisible] =
-    useToggle();
+
   return (
-    <div className="flex w-full justify-center bg-gray-800">
-      {/* <div className="flex flex-col justify-center space-between gap-4 items-center w-[40%]">
+    <div className="bg-gray-800">
+      <div className="flex w-full justify-center">
+        {/* <div className="flex flex-col justify-center space-between gap-4 items-center w-[40%]">
         <Topup
           isTopUpModalVisible={isTopUpModalVisible}
           toggleTopUpModalVisible={toggleTopUpModalVisible}
@@ -98,12 +100,9 @@ export default function ElusivApp() {
           isSendModalVisible={isSendModalVisible}
           toggleSendModalVisible={toggleSendModalVisible}
         />
-        <ViewPrivateTransaction
-          isViewTransactionModalVisible={isViewTransactionModalVisible}
-          toggleViewTransactionModalVisible={toggleViewTransactionModalVisible}
-        />
+        
       </div> */}
-      {/* <div className="flex flex-col w-[60%] justify-center items-center">
+        {/* <div className="flex flex-col w-[60%] justify-center items-center">
         <Text className="align-center text-white text-center w-[450px] font-medium text-xl">
           This is a Elusiv Dapp Example for every body who want to know how to
           integrate Elusiv SDK to your app. Here we have build 3 function when
@@ -129,16 +128,10 @@ export default function ElusivApp() {
             </Text>
           </li>
         </ul>
+      </div> */}
+
+        <Offers />
       </div>
-      <BorrowingRequest
-        isBorrowingRequestodalVisible={isBorrowingRequestodalVisible}
-        toggleBorrowingRequestodalVisible={toggleBorrowingRequestodalVisible}
-      />
-      <AuditingRequest
-        isAuditingRequestodalVisible={isAuditingRequestodalVisible}
-        toggleAuditingRequestodalVisible={toggleAuditingRequestodalVisible}
-      />
-      <Offers posts={POSTS} />
     </div>
   );
 }

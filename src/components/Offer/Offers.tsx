@@ -5,10 +5,10 @@ import Image from 'next/image';
 const Offers = ({ posts }: any) => {
   // console.log(posts);
   return (
-    <div className="w-full m-auto px-20 flex items-center flex-wrap justify-center">
+    <div className="w-full m-auto px-20 flex gap-1 items-center flex-wrap justify-center">
       {posts.map((post: any, index: number) => (
         <div
-          className="border-[1px] border-gray-400 p-6 rounded-md mb-8 w-1/3 mr-5"
+          className="flex border-[1px] border-gray-400 p-6 rounded-md mb-8 w-1/3 mr-5"
           key={index}
         >
           <Text

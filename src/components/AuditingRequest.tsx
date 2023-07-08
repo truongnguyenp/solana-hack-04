@@ -1,23 +1,15 @@
 import React, { useContext, useState } from 'react';
-import {
-  Button,
-  FormControl,
-  Input,
-  useToast,
-  FormLabel,
-} from '@chakra-ui/react';
+import { Button, useToast } from '@chakra-ui/react';
 import { TopUpIcon } from './icons';
 import Modal from './common/Modal';
-import { TopupTxData } from '@elusiv/sdk';
 import { useWallet } from '@solana/wallet-adapter-react';
 import { LAMPORTS_PER_SOL, PublicKey } from '@solana/web3.js';
 import { AppContext } from '@/contexts/AppProvider';
-import { Request as RequestType } from '@/types';
 import Request from './Requests/Request';
 import { useQuery } from 'react-query';
 import { getAllRequest } from '@/api/server';
-import BigNumber from 'bignumber.js';
 import { ELUSIV_KEY } from '@/constants';
+
 export default function AuditingRequest({
   isAuditingRequestodalVisible,
   toggleAuditingRequestodalVisible,
@@ -34,14 +26,6 @@ export default function AuditingRequest({
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setAmount(e.target.value as unknown as number);
   const toast = useToast();
-  // const [requests, setRequests] = useState<RequestType[]>([
-  //   {
-  //     id: '1',
-  //     offerId: '1',
-  //     ownerId: '1',
-  //     NftId: '1',
-  //   },
-  // ]);
 
   const { data: requests, refetch } = useQuery('requests', () =>
     getAllRequest('1')
@@ -97,21 +81,25 @@ export default function AuditingRequest({
         modalLabel="Auditing Requests"
         onSubmit={() => {}}
       >
-        {Array.isArray(requests?.data) &&
-          requests?.data?.map((request) => {
-            return (
-              <Request
-                key={request.id}
-                request={request}
-                acceptRequestAction={async () => {
-                  await handleSendPrivateBalance(
-                    'CwntKGRnMEPUsGpi6ZYq9hWqrhzLNTgEq1YFJ9S2xy4X',
-                    0.1
-                  );
-                }}
-              />
-            );
-          })}
+        {Array.isArray(requests?.data) && (
+          <div className="flex flex-col gap-4">
+            {requests?.data?.map((request) => {
+              return (
+                <Request
+                  key={request.id}
+                  request={request}
+                  acceptRequestAction={async () => {
+                    await handleSendPrivateBalance(
+                      'CwntKGRnMEPUsGpi6ZYq9hWqrhzLNTgEq1YFJ9S2xy4X',
+                      0.1
+                    );
+                    refetch();
+                  }}
+                />
+              );
+            })}
+          </div>
+        )}
       </Modal>
     </div>
   );

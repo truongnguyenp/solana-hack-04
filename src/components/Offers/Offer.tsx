@@ -2,29 +2,21 @@ import React, { useState } from 'react';
 
 import Pic from './product/Pic';
 import TextOffer from './product/TextOffer';
-import OfferButton from './product/OfferButton';
-import OfferModal from './product/OfferModal';
 
-// import { Text } from '@chakra-ui/react';
+
 import Profile from './profile/Profile';
-
-// import "./Offer.css";
+import { useToggle } from 'usehooks-ts';
+import BorrowingRequest from '../BorrowingRequest';
+import ViewPrivateTransaction from '../ViewPrivateTransaction';
 
 const Offer = ({ offer }: any) => {
-  // Moved these lines inside the Offer component
-  const [isOpen, setIsOpen] = useState(false);
+  const [isBorrowingRequestodalVisible, toggleBorrowingRequestodalVisible] =
+    useToggle();
 
-  const handleOpenModal = () => {
-    setIsOpen(true);
-  };
-
-  const handleCloseModal = () => {
-    setIsOpen(false);
-  };
-  // End of moved lines
-
+  const [isViewTransactionModalVisible, toggleViewTransactionModalVisible] =
+    useToggle();
   return (
-    <div className="frame h-[624px] relative">
+    <div className="frame">
       <Profile userImg={offer.userImg} userName={offer.userName} />
       <Pic source={offer.nftCollectionImg} />
       <TextOffer
@@ -34,8 +26,18 @@ const Offer = ({ offer }: any) => {
         interestRate={offer.interestRate}
       />
 
-      <OfferButton handleOpenModal={handleOpenModal} />
-      <OfferModal isOpen={isOpen} handleCloseModal={handleCloseModal} />
+      <div className="flex flex-col gap-4">
+        <BorrowingRequest
+          className="flex justify-center"
+          isBorrowingRequestodalVisible={isBorrowingRequestodalVisible}
+          toggleBorrowingRequestodalVisible={toggleBorrowingRequestodalVisible}
+        />
+        <ViewPrivateTransaction
+          className="flex justify-center"
+          isViewTransactionModalVisible={isViewTransactionModalVisible}
+          toggleViewTransactionModalVisible={toggleViewTransactionModalVisible}
+        />
+      </div>
     </div>
   );
 };
