@@ -12,7 +12,7 @@ const Price = (props: any) => {
           alt="Solana free icon"
           title="Solana free icon"
         />
-        <p className="ml-[4px]">{props.maximumLending}</p>
+        <p className="ml-[4px]">{'0.1'}</p>
       </div>
     </div>
   );

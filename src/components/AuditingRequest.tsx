@@ -69,6 +69,7 @@ export default function AuditingRequest({
         colorScheme="purple"
         onClick={() => {
           toggleAuditingRequestodalVisible();
+          refetch();
         }}
         className="w-[200px]"
       >
